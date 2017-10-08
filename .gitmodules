@@ -1,0 +1,3 @@
+[submodule "slic3r_profiles"]
+	path = slic3r_profiles
+	url = https://github.com/jed-frey/slic3r_profiles.git
