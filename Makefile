@@ -25,6 +25,7 @@ all: ${GCODE}
 ${GPREFIX}%${GSUFFIX}.gcode: %.stl
 	@mkdir -p ${dir ${@}}
 	@echo Slicing: ${<}
+	
 	@slic3r --print-center=150,150 \
 	  --load=slic3r_profiles/filament/${FILAMENT} \
 	  --load=slic3r_profiles/print/${PRINT} \
