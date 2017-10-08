@@ -13,16 +13,19 @@ GCODE := $(patsubst %.stl,${GPREFIX}%${GSUFFIX}.gcode,${STL})
 .DEFAULT: all
 .PHONY: all
 all: ${GCODE}
-	@echo ${GCODE}
 
 .PHONY: stl
 stl: ${STL}
 
-${GPREFIX}%${GSUFFIX}.gcode: %.stl
+slic3r_profiles:
+	git submodule init
+	git submodule update
+
+${GPREFIX}%${GSUFFIX}.gcode: %.stl slic3r_profiles
 	slic3r --print-center=150,150 \
-	    --load=../slic3r_profiles/filament/${FILAMENT} \
-	    --load=../slic3r_profiles/print/${PRINT} \
-	    --load=../slic3r_profiles/printer/${PRINTER} \
+	    --load=slic3r_profiles/filament/${FILAMENT} \
+	    --load=slic3r_profiles/print/${PRINT} \
+	    --load=slic3r_profiles/printer/${PRINTER} \
 	    --output=${@} \
 	    ${<}
 
