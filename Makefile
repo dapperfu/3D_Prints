@@ -9,21 +9,22 @@ PRINTER ?= cr10
 STL ?= $(shell find . -name "*.stl" | sort)
 
 # Setup a directory structure for the output gcode.
-GPREFIX := ${PRINTER/${FILAMENT}_${PRINT}/
+GPREFIX := build/${PRINTER}/
 # Add suffix to base .stl
 GSUFFIX := -${PRINTER}-${FILAMENT}-${PRINT}
 
-GCODE := $(patsubst %.stl,${GPREFIX}%${GSUFFIX}.gcode,$(STL))
+# Determine the gcode files to make.
+GCODE := $(patsubst %.stl,${GPREFIX}%${GSUFFIX}.gcode,${STL})
 
 # Default to building the stl files.
 .DEFAULT: all
 .PHONY: all
 all: ${GCODE}
-	@echo $<
 
+# Slice the STL files into G-code
 ${GPREFIX}%${GSUFFIX}.gcode: %.stl
-	@echo ${<} -> ${@}
 	@mkdir -p ${dir ${@}}
+	@echo Slicing: ${<}
 	@slic3r --print-center=150,150 \
 	  --load=slic3r_profiles/filament/${FILAMENT} \
 	  --load=slic3r_profiles/print/${PRINT} \
@@ -31,10 +32,12 @@ ${GPREFIX}%${GSUFFIX}.gcode: %.stl
 	  --output=${@} \
 	  ${<}
 
-slic3r_profiles:
-	git submodule init
-	git submodule update
+# Update slicer profiles.
 
+#	git submodule init
+#	git submodule update
+
+# Clean up the g-code.
 .PHONY: clean
 clean:
-	rm -rf ${GCODE}
+	git clean -fdn
