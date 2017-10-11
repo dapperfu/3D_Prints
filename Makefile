@@ -1,6 +1,6 @@
 # slic3r profiles to use.
-FILAMENT ?= temp_250
-PRINT ?= fine3_2
+FILAMENT ?= temp_H250-230_B70-40
+PRINT ?= .16_20pct_3DHoney_Hilbert
 PRINTER ?= cr10
 
 # Find all STL files.
@@ -25,7 +25,7 @@ all: ${GCODE}
 ${GPREFIX}%${GSUFFIX}.gcode: %.stl
 	@mkdir -p ${dir ${@}}
 	@echo Slicing: ${<}
-	
+
 	@slic3r --print-center=150,150 \
 	  --load=slic3r_profiles/filament/${FILAMENT} \
 	  --load=slic3r_profiles/print/${PRINT} \
@@ -34,9 +34,10 @@ ${GPREFIX}%${GSUFFIX}.gcode: %.stl
 	  ${<}
 
 # Update slicer profiles.
-
-#	git submodule init
-#	git submodule update
+.PHONY: update
+update:
+	git submodule init slic3r_profiles/
+	git submodule update --remote --force --checkout slic3r_profiles/
 
 # Clean up the g-code.
 .PHONY: clean
