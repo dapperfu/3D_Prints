@@ -1,6 +1,6 @@
 # slic3r profiles to use.
-FILAMENT ?= temp_H250-230_B70-40
-PRINT ?= .16_20pct_3DHoney_Hilbert
+FILAMENT ?= temp_H210-190_B70-40
+PRINT ?= 16_20pct_Honeycomb_Hilbert
 PRINTER ?= cr10
 
 # Find all STL files.
