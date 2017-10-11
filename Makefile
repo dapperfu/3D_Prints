@@ -43,3 +43,7 @@ update:
 .PHONY: clean
 clean:
 	git clean -fdn
+
+.PHONY: bootstrap
+bootstrap:
+	sudo apt-get install slic3r
