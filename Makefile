@@ -1,7 +1,11 @@
-# slic3r profiles to use.
+# Default slic3r profiles to use.
 FILAMENT ?= temp_H250-240_B70-40
 PRINT ?= fine3_2
 PRINTER ?= CR10_0.4mm
+
+# Additional slic3r override options.
+# Eg: `OPTIONS=--first-layer-speed=10 make`
+OPTIONS ?=
 
 # Where to center the print.
 PRINT_CENTER ?= 50,50
@@ -9,10 +13,9 @@ PRINT_CENTER ?= 50,50
 # Number of threads to use in slic3r
 THREADS ?= $(shell grep -c ^processor /proc/cpuinfo)
 
-# Find all STL files.
+# Find all STL files if none specified.
 # STL ?= $(wildcard */*.stl)
 # Search deeper than with just wildcard.
-
 STL ?= $(shell find . -name "*.stl" | sort)
 
 # Setup a directory structure for the output gcode.
@@ -39,6 +42,7 @@ ${GPREFIX}%${GSUFFIX}.gcode: %.stl
 	  --load=slic3r_profiles/print/${PRINT} \
 	  --load=slic3r_profiles/printer/${PRINTER} \
 	  --output=${@} \
+	  ${OPTIONS} \
 	  ${<}
 
 # Update slicer profiles.
@@ -63,6 +67,7 @@ debug:
 	$(info $$FILAMENT is [${FILAMENT}])
 	$(info $$PRINT is [${PRINT}])
 	$(info $$PRINTER is [${PRINTER}])
+	$(info $$OPTIONS is [${OPTIONS}])
 	$(info $$THREADS is [${THREADS}])
 	$(info $$STL is [${STL}])
 	@echo
