@@ -3,13 +3,16 @@ FILAMENT ?= temp_H250-240_B70-40
 PRINT ?= fine3_2
 PRINTER ?= CR10_0.4mm
 
+# Where to center the print.
 PRINT_CENTER ?= 50,50
 
-THREADS? ?= $(shell grep -c ^processor /proc/cpuinfo)
+# Number of threads to use in slic3r
+THREADS ?= $(shell grep -c ^processor /proc/cpuinfo)
 
 # Find all STL files.
 # STL ?= $(wildcard */*.stl)
 # Search deeper than with just wildcard.
+
 STL ?= $(shell find . -name "*.stl" | sort)
 
 # Setup a directory structure for the output gcode.
@@ -54,3 +57,12 @@ clean:
 .PHONY: debian
 debian:
 	sudo apt-get install slic3r git
+
+.PHONY: debug
+debug:
+	$(info $$FILAMENT is [${FILAMENT}])
+	$(info $$PRINT is [${PRINT}])
+	$(info $$PRINTER is [${PRINTER}])
+	$(info $$THREADS is [${THREADS}])
+	$(info $$STL is [${STL}])
+	@echo
