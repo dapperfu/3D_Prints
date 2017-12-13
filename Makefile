@@ -1,11 +1,11 @@
 # slic3r profiles to use.
 FILAMENT ?= temp_H250-240_B70-40
 PRINT ?= fine3_2
-PRINTER ?= printer_cr10_300x300
+PRINTER ?= CR10_0.4mm
 
-PRINT_CENTER?=50,50
+PRINT_CENTER ?= 50,50
 
-THREADS?=$(shell grep -c ^processor /proc/cpuinfo)
+THREADS? ?= $(shell grep -c ^processor /proc/cpuinfo)
 
 # Find all STL files.
 # STL ?= $(wildcard */*.stl)
@@ -43,12 +43,14 @@ ${GPREFIX}%${GSUFFIX}.gcode: %.stl
 update:
 	git submodule init slic3r_profiles/
 	git submodule update --remote --merge
+	git add slic3r_profiles
+	git commit -m "Updated submodules."
 
 # Clean up the g-code.
 .PHONY: clean
 clean:
 	git clean -fdn
 
-.PHONY: bootstrap
-bootstrap:
-	sudo apt-get install slic3r
+.PHONY: debian
+debian:
+	sudo apt-get install slic3r git
