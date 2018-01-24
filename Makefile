@@ -1,14 +1,16 @@
 # Default slic3r profiles to use.
+# slic3r profiles to use.
 FILAMENT ?= temp_H250-240_B70-40
-PRINT ?= fine3_2
-PRINTER ?= CR10_0.4mm
+PRINT ?= fine3_3
+PRINTER ?= CR10
+NOZZLE ?= 0.4
 
 # Additional slic3r override options.
 # Eg: `OPTIONS=--first-layer-speed=10 make`
 OPTIONS ?=
 
 # Where to center the print.
-PRINT_CENTER ?= 50,50
+PRINT_CENTER ?= 150,150
 
 # Number of threads to use in slic3r
 THREADS ?= $(shell grep -c ^processor /proc/cpuinfo)
