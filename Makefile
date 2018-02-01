@@ -1,4 +1,7 @@
-.DEFAULT: debug
+.DEFAULT: all
+.PHONY: all
+all: gcode
+
 # Update slicer profiles.
 .PHONY: update
 update:
