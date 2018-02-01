@@ -1,52 +1,4 @@
-# Default slic3r profiles to use.
-# slic3r profiles to use.
-FILAMENT ?= temp_H250-240_B70-40
-PRINT ?= fine3_3
-PRINTER ?= CR10
-NOZZLE ?= 0.4
-
-# Additional slic3r override options.
-# Eg: `OPTIONS=--first-layer-speed=10 make`
-OPTIONS ?=
-
-# Where to center the print.
-PRINT_CENTER ?= 150,150
-
-# Number of threads to use in slic3r
-THREADS ?= $(shell grep -c ^processor /proc/cpuinfo)
-
-# Find all STL files if none specified.
-# STL ?= $(wildcard */*.stl)
-# Search deeper than with just wildcard.
-STL ?= $(shell find . -name "*.stl" | sort)
-
-# Setup a directory structure for the output gcode.
-GPREFIX := build/${PRINTER}/
-# Add suffix to base .stl
-GSUFFIX := -${PRINTER}-${FILAMENT}-${PRINT}
-
-# Determine the gcode files to make.
-GCODE := $(patsubst %.stl,${GPREFIX}%${GSUFFIX}.gcode,${STL})
-
-# Default to building the stl files.
-.DEFAULT: all
-.PHONY: all
-all: ${GCODE}
-
-# Slice the STL files into G-code
-${GPREFIX}%${GSUFFIX}.gcode: %.stl
-	@mkdir -p ${dir ${@}}
-	@echo Slicing: ${<}
-
-	@slic3r --print-center=${PRINT_CENTER} \
-	  --threads=${THREADS} \
-	  --load=slic3r_profiles/filament/${FILAMENT} \
-	  --load=slic3r_profiles/print/${PRINT} \
-	  --load=slic3r_profiles/printer/${PRINTER} \
-	  --output=${@} \
-	  ${OPTIONS} \
-	  ${<}
-
+.DEFAULT: debug
 # Update slicer profiles.
 .PHONY: update
 update:
@@ -73,3 +25,5 @@ debug:
 	$(info $$THREADS is [${THREADS}])
 	$(info $$STL is [${STL}])
 	@echo
+
+include slic3r_profiles/slice.mk
