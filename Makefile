@@ -21,11 +21,14 @@ clean:
 .PHONY: venv
 venv: ${VENV}
 
-${VENV}:
+${VENV}: requirements.txt
 	@python3 -mvenv ${@}
 	@${VENV}/bin/pip install --upgrade pip
 	@${VENV}/bin/pip install --upgrade setuptools wheel
 	@${VENV}/bin/pip install --upgrade --requirement requirements.txt
+
+requirements.txt:
+	@echo ${@} is missing.
 
 .PHONY: debian
 debian:

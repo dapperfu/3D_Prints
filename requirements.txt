@@ -3,3 +3,4 @@ notebook
 pyqrcode
 pylatex
 qrcode
+pillow
