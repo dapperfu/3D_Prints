@@ -2,3 +2,4 @@ jupyter
 notebook
 pyqrcode
 pylatex
+qrcode
