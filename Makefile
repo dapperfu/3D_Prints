@@ -1,3 +1,5 @@
+VENV ?= .venv
+
 .DEFAULT: all
 .PHONY: all
 all: gcode
@@ -13,7 +15,17 @@ update:
 # Clean up the g-code.
 .PHONY: clean
 clean:
-	git clean -fdn
+	@git clean -xfd
+
+
+.PHONY: venv
+venv: ${VENV}
+
+${VENV}:
+	@python3 -mvenv ${@}
+	@${VENV}/bin/pip install --upgrade pip
+	@${VENV}/bin/pip install --upgrade setuptools wheel
+	@${VENV}/bin/pip install --upgrade --requirement requirements.txt
 
 .PHONY: debian
 debian:
