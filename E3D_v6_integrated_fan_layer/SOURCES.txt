@@ -1,0 +1,4 @@
+Sources for E3D v6 integrated fan layer
+
+makergear m2 e3d filament drive and ez removable fan duct (http://www.thingiverse.com/thing:344950)
+E3D V6  cooling fan mount with blower attachment (http://www.thingiverse.com/thing:465495)
