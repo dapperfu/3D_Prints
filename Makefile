@@ -44,4 +44,4 @@ debug:
 	$(info $$STL is [${STL}])
 	@echo
 
-include slic3r_profiles/slice.mk
+-include slic3r_profiles/slice.mk
