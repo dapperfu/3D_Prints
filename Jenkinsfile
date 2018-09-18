@@ -17,5 +17,10 @@ pipeline {
 
       }
     }
+    stage('Make all') {
+      steps {
+        sh './make_all.sh'
+      }
+    }
   }
 }
