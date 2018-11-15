@@ -1,0 +1,4 @@
+Sources for CR-10 Y-Axis Belt Tensioner Remix
+
+CR-10 Y-Axis Belt Tensioner (https://www.thingiverse.com/thing:2168903)
+CR-10 X-Axis Realigned Tensioner  (https://www.thingiverse.com/thing:2417659)
