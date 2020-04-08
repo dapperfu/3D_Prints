@@ -5,9 +5,7 @@ Repo for 3D Models.
 
 Pick one:
 
-    git clone --recurse-submodules https://github.com/jed-frey/3D_Prints.git
-
-    git clone --recurse-submodules git@github.com:jed-frey/3D_Prints.git
+    git clone --recurse-submodules https://github.com/dapperfu/3D_Prints.git
 
 Change directory:
 
